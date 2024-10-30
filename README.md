@@ -1,4 +1,4 @@
-# Exodian Particle Simulator
+# Particle Fluid simulator
 
 <img align="right" width="550" src="https://github.com/000x999/000x999_gifs/blob/main/GHub_3_1.gif">
 
