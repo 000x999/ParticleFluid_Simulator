@@ -84,12 +84,12 @@ Follow the [official guide](https://github.com/raysan5/raylib) to manually build
 ### Step 3: Clone the Repository and Build
 1. Clone the repository:
     ```bash
-    git clone https://github.com/000x999/EXODIAN_PARTICLE_SIM
+    git clone https://github.com/000x999/ParticleFluid_Simulator
     cd EXODIAN_PARTICLE_SIM
     ```
 2. Compile and run the program:
     ```bash
-    g++ -o EXODIAN_PARTICLE_SIM main.cpp Particle.cpp -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
+    g++ -o ParticleFluid_Simulator main.cpp Particle.cpp -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
     ./EXODIAN_PARTICLE_SIM
     ```
 
