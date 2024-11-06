@@ -27,6 +27,8 @@ A 2D particle simulator written in C++ using Raylib. <br>The simulator features 
 **Note:**
 - The particle simulator can be built and ran entirely in Visual Studio, the only requirement is having Raylib installed.
 - Build instructions for anyone who doesn't use Visual studio can be found below including installing Raylib using vcpkg, MSYS2, Homebrew, apt as well as other build instructions and compiler flags.
+- A Makefile is provided as well, simply insert your 'raylib/src' folder path in the CXXFLAGS and LDFLAGS sections inside the Makefile, ensure that 'raygui.h' is inside the src folder as well, then simply run 'make' from the command line.
+- If all else fails, a pre-built executable is available to be downloaded. 
 
 ### Option 1: Install Raylib using **vcpkg**
 1. Install vcpkg by cloning the repository:
@@ -87,9 +89,15 @@ Follow the [official guide](https://github.com/raysan5/raylib) to manually build
     git clone https://github.com/000x999/ParticleFluid_Simulator
     cd EXODIAN_PARTICLE_SIM
     ```
-2. Compile and run the program:
+2. Compile and run the program directly from the command line:
     ```bash
-    g++ -o ParticleFluid_Simulator main.cpp Particle.cpp -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
-    ./EXODIAN_PARTICLE_SIM
+    g++ -o ParticleFluid_Simulator main.cpp Particle.cpp -lraylib -lopengl32 -lgdi32 -lwinmm -Wno-enum-compare -Wno-unused-variable -fpermissive
+    ./ParticleFluid_Simulator
+    ```
+3. Compile and run using the provided Makefile:
+    ```bash
+    - Set your 'raylib/src' folder path in the CXXFLAGS and LDFLAGS section inside the Makefile. 
+    - Double check that 'raygui.h' is inside the 'raylib/src' folder as well.
+    - Simply run 'make' directly in the command line from within the 'ParticleFluid_Simulator' file.  
     ```
 
