@@ -5,7 +5,7 @@ LDFLAGS := -L"Link to your raylib src folder" -lraylib -lopengl32 -lgdi32 -lwinm
 
 SRCS := $(wildcard *.cpp)
 OBJS := $(SRCS:.cpp=.o)
-BIN := raylib_project
+BIN := ParticleFluid_Simulator
 
 .PHONY: all clean run
 
