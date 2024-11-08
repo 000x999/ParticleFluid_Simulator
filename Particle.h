@@ -1,7 +1,7 @@
 #ifndef PARTICLE_H
 #define PARTICLE_H
 
-#include "raylib.h"
+#include <raylib.h>
 #include "Vec2.h"
 #include "HashGrid.h"
 #include <immintrin.h>
@@ -40,18 +40,21 @@ public:
 	Hash<Particle> p_hashGrid;
 	float p_radius = 5.0f;
 	float p_mass = p_radius;
-	float p_particleCount = 0.0f;
+	float p_particleCount = 0.0f; 
 
 	Particle(const Vec2& pos_in, const Vec2& force_in, float mass_in, float radius_in, Color color_in); 
 	Particle() = default;  
 	~Particle() = default;
-	void DrawParticle(const Particle& particle) const; 
-	void UpdateParticle(Particle& particle, float dt);
+  void CircleFull(const Vec2& posC, const Vec2& pos, Color color)  const; 
+  void ResolveCircleFull(const Vec2& posC, int rad, Color color)   const;
+  void ResolveCircleLines(const Vec2& posC, int rad, Color color)  const;
+	void CircleLines(const Vec2& posC, const Vec2& pos, Color color) const;
+  void UpdateParticle(Particle& particle, float dt);
 	void UpdateLoop(float dt, float decay_in);
 	void ParticleCollision(Particle& particle, Particle& OtherParticle);
 	void WorldCollision(Particle& particle, float decay_in);
 	void AddParticle(); 
-	void MoveParticles(Particle& p, Particle& other, float decay_in)const; 
+	void MoveParticles(Particle& p, Particle& other, float decay_in) const; 
 	bool IsColliding(Particle& particle, Particle& OtherParticle);
 	void ColorizeParticles(float maxspeed);
 	void DrawCount();
@@ -73,4 +76,4 @@ public:
 	Color GetHeatWaveColor(float t);  
 };
 
-#endif // !PARTICLE_H
+#endif 

@@ -1,9 +1,9 @@
-#pragma once
 #ifndef HASHGRID_H
 #define HASHGRID_H
 #include "raylib.h"
 #include <vector>
 #include <memory>
+#include "Vec2.h"
 #include <array>
 #include <cstdint>
 #include <cmath>

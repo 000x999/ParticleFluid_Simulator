@@ -1,4 +1,6 @@
 #include "Particle.h"
+#include "raylib.h"
+
 
 Particle::Particle(const Vec2& pos_in, const Vec2& force_in, float mass_in, float radius_in, Color color_in) 
     :
@@ -9,17 +11,58 @@ Particle::Particle(const Vec2& pos_in, const Vec2& force_in, float mass_in, floa
     m_color(color_in) 
     { m_prevPos = m_pos; }
 
-void Particle::DrawParticle(const Particle& particle) const {
-    //Outlining method when hovering over particles
-       //Disabled for now since it eats up too many frames
-       //I have it so theyre always buffered but only drawn when hovering over particles
-    Color DrawColor = particle.GetState() ? YELLOW : particle.m_color;
-    uint32_t DrawRadius = particle.GetState() ? static_cast<uint32_t> (particle.p_radius)
-        : static_cast<uint32_t>(particle.p_radius); 
-   /* if (ShowOutlines) {
-        DrawCircleLinesV({ particle->pos.x, particle->pos.y }, particle->radius, DrawColor);
-    }*/
-    DrawCircleV({ particle.m_pos.x, particle.m_pos.y }, particle.p_radius, particle.m_color); 
+void Particle::CircleFull(const Vec2& posC, const Vec2& pos, Color color) const{
+  DrawLine(posC.x - pos.x, posC.y + pos.y, posC.x + pos.x, posC.y + pos.y, color);
+  DrawLine(posC.x - pos.x, posC.y - pos.y, posC.x + pos.x, posC.y - pos.y, color);
+  DrawLine(posC.x - pos.y, posC.y + pos.x, posC.x + pos.y, posC.y + pos.x, color);
+  DrawLine(posC.x - pos.y, posC.y - pos.x, posC.x + pos.y, posC.y - pos.x, color);
+}
+
+void Particle::ResolveCircleFull(const Vec2& posC, int rad, Color color) const {
+  Vec2 inPos = {0, 0}; 
+  inPos.x = 0; 
+  inPos.y = rad;
+  int d = 3 - 2 * rad; 
+  CircleFull(posC, inPos, color);
+  while(inPos.y >= inPos.x){
+    if(d > 0){
+      inPos.y--; 
+      d = d + 4 * (inPos.x - inPos.y) + 10; 
+    }else{
+      d = d + 4 * inPos.x + 6;
+    }
+    inPos.x++;
+    CircleFull(posC, inPos, color);
+  }
+}
+
+void Particle::ResolveCircleLines(const Vec2& posC, int rad, Color color) const{
+  Vec2 inPos = {0, 0}; 
+  inPos.x = 0; 
+  inPos.y = rad;
+  int d = 3 - 2 * rad; 
+  CircleLines(posC, inPos, color);
+  while(inPos.y >= inPos.x){
+    if(d > 0){
+      inPos.y--; 
+      d = d + 4 * (inPos.x - inPos.y) + 10; 
+    }else{
+      d = d + 4 * inPos.x + 6;
+    }
+    inPos.x++;
+    CircleLines(posC, inPos, color);
+  }
+}
+
+void Particle::CircleLines(const Vec2& posC, const Vec2& pos, Color color) const{
+  DrawPixel(posC.x+pos.x, posC.y+pos.y, color);
+  DrawPixel(posC.x-pos.x, posC.y+pos.y, color);
+  DrawPixel(posC.x+pos.x, posC.y-pos.y, color);
+  DrawPixel(posC.x-pos.x, posC.y-pos.y, color);
+  DrawPixel(posC.x+pos.y, posC.y+pos.x, color);
+  DrawPixel(posC.x-pos.y, posC.y+pos.x, color);
+  DrawPixel(posC.x+pos.y, posC.y-pos.x, color);
+  DrawPixel(posC.x-pos.y, posC.y-pos.x, color);
 }
 
 void Particle::UpdateParticle(Particle& particle, float dt) {
@@ -63,18 +106,23 @@ void Particle::UpdateLoop(float dt, float decay_in) {
             //Solves the collisions by passing in the fetched valid particles from the PotentialCollisions vector
             particle->ParticleCollision(*particle, OtherParticle);
             if (p_isShowingCollisions) {
-                DrawLineEx({ particle->m_pos.x, particle->m_pos.y }, { OtherParticle.m_pos.x, OtherParticle.m_pos.y }, 1.0f, particle->m_color);
+                DrawLineEx({ particle->m_pos.x, particle->m_pos.y }, 
+                           { OtherParticle.m_pos.x, OtherParticle.m_pos.y }, 1.0f, particle->m_color);
             }
         }
        
         particle->WorldCollision(*particle, decay_in);
         if (p_isShowingCollisions) {
             if (p_toggleCircleLines) {
-                DrawCircleLinesV({ particle->m_pos.x, particle->m_pos.y }, particle->p_radius, particle->m_color);
+              particle->ResolveCircleLines(particle->m_pos, particle->p_radius,particle->m_color);
             }
         }
         else {
-            particle->DrawParticle(*particle);
+            if (p_toggleCircleLines) {
+              particle->ResolveCircleLines(particle->m_pos, particle->p_radius,particle->m_color);
+            }else{
+              particle->ResolveCircleFull(particle->m_pos, particle->p_radius, particle->m_color);
+            }  
         }
         particle->Clear();
     }

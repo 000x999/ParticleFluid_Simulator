@@ -1,5 +1,9 @@
+float TextToFloat(const char* text) {
+    return 0.0f; 
+}
+
 #define RAYGUI_IMPLEMENTATION
-#include "raylib.h"
+#include <raylib.h>
 #include "raygui.h"
 #include "Particle.h"
 #include "HashGrid.h"
@@ -17,7 +21,7 @@ static void GUIControls(void)
 
 	int style = GuiGetStyle(SCROLLBAR, BORDER_WIDTH);
 
-	GuiSliderBar({ posx + 130, posy + 15, 145, 15 }, "", TextFormat("%i", (int)particle->GetParticleCount()), (&particle->p_particleCount), 0, 4000);
+	GuiSliderBar({ posx + 130, posy + 15, 145, 15 }, "", TextFormat("%i", (int)particle->GetParticleCount()), (&particle->p_particleCount), 0, 5500);
 	GuiSliderBar({ posx + 130, posy + 35, 145, 15 }, "", TextFormat("%i", (int)particle->GetRadius()), (&particle->p_radius), 5, 10);
 	GuiSliderBar({ posx + 130, posy + 55, 145, 15 }, "", TextFormat("%i", (int)particle->p_hashGrid.m_cellSize), (&particle->p_hashGrid.m_cellSize), 10, 50);
 	GuiSliderBar({ posx + 130, posy + 75, 145, 15 }, "", TextFormat("%i", (int)particle->p_force.x), (&particle->p_force.x), 0, 725);
