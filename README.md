@@ -25,7 +25,7 @@ A 2D particle simulator written in C++ using Raylib. <br>The simulator features 
 
 ## Installation
 **Note:**
-- The particle simulator can be built and ran entirely in Visual Studio, the only requirement is having Raylib installed.
+- The particle simulator can be built and ran entirely in Visual Studio, the only requirement is having Raylib installed and the proper build commands and file paths linked in the project settings.
 - Build instructions for anyone who doesn't use Visual studio can be found below including installing Raylib using vcpkg, MSYS2, Homebrew, apt as well as other build instructions and compiler flags.
 - A Makefile is provided as well, simply insert your 'raylib/src' folder path in the CXXFLAGS and LDFLAGS sections inside the Makefile, ensure that 'raygui.h' is inside the src folder as well, then simply run 'make' from the command line.
 - If all else fails, a pre-built executable is available to be downloaded. 
