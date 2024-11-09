@@ -39,7 +39,7 @@ public:
 
     std::vector<CollisionCell<T>> m_data;
     float m_cellSize = 10.0f;
-    uint32_t m_maxSize = 1000u;
+    uint32_t m_maxSize = 1920u;
     uint32_t m_gridWidth, m_gridHeight;
 
     Hash() {

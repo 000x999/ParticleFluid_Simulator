@@ -16,9 +16,10 @@ void Particle::CircleFull(const Vec2& posC, const Vec2& pos, Color color) const{
   DrawLine(posC.x - pos.x, posC.y - pos.y, posC.x + pos.x, posC.y - pos.y, color);
   DrawLine(posC.x - pos.y, posC.y + pos.x, posC.x + pos.y, posC.y + pos.x, color);
   DrawLine(posC.x - pos.y, posC.y - pos.x, posC.x + pos.y, posC.y - pos.x, color);
-}
+} 
 
 void Particle::ResolveCircleFull(const Vec2& posC, int rad, Color color) const {
+  
   Vec2 inPos = {0, 0}; 
   inPos.x = 0; 
   inPos.y = rad;
@@ -34,6 +35,8 @@ void Particle::ResolveCircleFull(const Vec2& posC, int rad, Color color) const {
     inPos.x++;
     CircleFull(posC, inPos, color);
   }
+  //DrawPixelV({posC.x, posC.y},color);
+
 }
 
 void Particle::ResolveCircleLines(const Vec2& posC, int rad, Color color) const{
@@ -92,7 +95,6 @@ void Particle::UpdateParticle(Particle& particle, float dt) {
 void Particle::UpdateLoop(float dt, float decay_in) {
     p_hashGrid.Clear();
     AddParticle();
-    DrawCount();
 
     for (auto& particle : m_particleVector) {
         p_hashGrid.AddToHash(*particle);
@@ -130,6 +132,7 @@ void Particle::UpdateLoop(float dt, float decay_in) {
     if (p_isGridActive) {
         p_hashGrid.DrawGrid();
     }
+      DrawCount();
 }
 
 void Particle::ParticleCollision(Particle& particle, Particle& OtherParticle) {
@@ -204,8 +207,8 @@ void Particle::WorldCollision(Particle& particle, float decay_in) {
 void Particle::AddParticle() {
     static std::random_device rand;
     //Position damping so they don't all spawn from the same point
-    static std::uniform_real_distribution<float> PosDampX(250, 650);
-    static std::uniform_real_distribution<float> PosDampY(150, 650);
+    static std::uniform_real_distribution<float> PosDampX(750, 950);
+    static std::uniform_real_distribution<float> PosDampY(350, 650);
     
     if (m_particleVector.size() < static_cast<uint16_t>(p_particleCount)) {
         //This increases the particle spawnrate... at the cost of some temp frame loss
@@ -278,7 +281,7 @@ void Particle::DrawCount() {
     int numOfParticles = m_particleVector.size();
     std::string countStr = std::to_string(numOfParticles);
     const char* countCStr = countStr.c_str();
-    DrawText(countCStr, 942, 30, 22, RED);
+    DrawText(countCStr, 1840, 30, 22, RED);
 }
 
 float Particle::GetDistance(Particle& particle, Particle& OtherParticle) {
