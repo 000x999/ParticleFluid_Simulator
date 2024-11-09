@@ -17,6 +17,9 @@ A 2D particle simulator written in C++ using Raylib. <br>The simulator features 
 <br><br><br>
 ## How It Works:
 - [A Comprehensive and in depth analysis of my particle simulator is available in a PDF format written in LaTeX.](https://github.com/000x999/ParticleFluid_Simulator/blob/main/Particle_Simulator_Analysis_000x999.pdf).
+## **Notes**:
+- The simulator now supports up to 11505 particles spawned at a constant 60FPS, roughly 3x the amount at it's initial release.
+- The in depth analysis of my Particle Simulator is not currently up to date with the recent changes and only covers the initial release version. I will however update it, in due time.
 
 
 ## Requirements
