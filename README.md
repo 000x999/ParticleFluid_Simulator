@@ -24,6 +24,7 @@ A 2D particle simulator written in C++ using Raylib. <br>The simulator features 
 
 ## Requirements
 - C++17 or newer
+- MinGW/GCC/G++
 - [Raylib](https://www.raylib.com/)
 
 ## Installation
